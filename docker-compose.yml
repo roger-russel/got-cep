@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  got-cep-dev:
+    container_name: got-cep-dev
+    image: golang:1.11-alpine3.8
+    volumes:
+      - ./:/app
+    command: ['tail', '-f', '/dev/null']
