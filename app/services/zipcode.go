@@ -1,37 +1,32 @@
 package services
 
 import (
-	"fmt"
+	"io/ioutil"
+	"net/http"
 	"os"
-	"strconv"
-
-	"github.com/imroc/req"
 )
 
-type sZipcode struct {
-	name         string
-	city         string
-	neighborhood string
-	state_short  string
-	street       string
-	zipcode      string
+type ZipData struct {
+	Json   string
+	Status int
 }
 
-func Zipcode(zipcode int) string {
+func Zipcode(zipcode string) ZipData {
 
 	jwt := os.Getenv("API_JWT_TOKEN")
 	url := os.Getenv("API_URL") + "/shipments/zipcode/"
-	url = url + strconv.Itoa(zipcode)
+	url = url + zipcode
 
-	req.Debug = true
+	req, _ := http.NewRequest("GET", url, nil)
 
-	r, _ := req.Get(url, req.Header{
-		"Accept":        "application/json",
-		"Authorization": `Bearer ` + jwt,
-	})
+	req.Header.Add("accept", "application/json")
+	req.Header.Add("cache-control", "no-cache")
+	req.Header.Add("authorization", `Bearer `+jwt)
 
-	resp := r.Response()
-	fmt.Println(resp.StatusCode)
-	return ""
-	//return json.NewDecoder(resp.Body).Decode(target)
+	res, _ := http.DefaultClient.Do(req)
+
+	defer res.Body.Close()
+	body, _ := ioutil.ReadAll(res.Body)
+
+	return ZipData{string(body), res.StatusCode}
 }

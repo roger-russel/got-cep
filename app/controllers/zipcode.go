@@ -10,19 +10,9 @@ type Zipcode struct {
 	App
 }
 
-type sZipCode struct {
-	State          string
-	City           string
-	Neighborhood   string
-	Street         string
-	IBGE           string
-	additionalInfo string
-	Sector         string
-}
+func (c Zipcode) Index(zipcode string) revel.Result {
 
-func (c Zipcode) Index(zipcode int) revel.Result {
-
-	body := services.Zipcode(zipcode)
-	data := sZipCode{Street: "ss asd s", City: body}
-	return c.RenderJSON(data)
+	zipdata := services.Zipcode(zipcode)
+	c.Response.Status = zipdata.Status
+	return c.RenderText(zipdata.Json)
 }

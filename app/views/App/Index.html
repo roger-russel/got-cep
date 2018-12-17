@@ -12,6 +12,28 @@
             >buscar</v-btn>
           </v-form>
         </template>
+        <template>
+          <ul>
+            <li>
+              {{"{{"}}data.name{{"}}"}}
+            </li>
+            <li>
+              {{"{{"}}data.zipcode{{"}}"}}
+            </li>
+            <li>
+              {{"{{"}}data.street{{"}}"}}
+            </li>
+            <li>
+              {{"{{"}}data.neighborhood{{"}}"}}
+            </li>
+            <li>
+              {{"{{"}}data.state_short{{"}}"}}
+            </li>
+            <li>
+              {{"{{"}}data.city{{"}}"}}
+            </li>
+          </ul>
+        </template>
        </v-layout>
     </v-app>
   </div>
@@ -42,10 +64,9 @@ neighborhood
         submit() {
          if (this.$refs.form.validate()) {
            this.$http.get('/zipcode/' + this.cep).then(response => {
-             this.data = response
-             console.log(data)
+             this.data = response.body
            }, response => {
-             this.error.message = response.message
+             this.error = response.body.message
            });
          }
         }
