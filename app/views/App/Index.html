@@ -1,21 +1,77 @@
 {{set . "title" "Home"}}
 {{template "header.html" .}}
 
-<header class="jumbotron" style="background-color:#A9F16C">
-  <div class="container">
-    <div class="row">
-      <h1>It works! So What?</h1>
-      <p></p>
-    </div>
+  <div id="app">
+    <v-app>
+      <v-content >
+        <v-layout>
+          <v-form ref="form">
+            <v-text-field v-model="cep" :rules="cepRules" :counter="8" label="cep" required></v-text-field>
+            <v-btn color="info"     
+              @click="submit"
+            >buscar</v-btn>
+          </v-form>
+        </template>
+        <template>
+          <ul>
+            <li>
+              {{"{{"}}data.name{{"}}"}}
+            </li>
+            <li>
+              {{"{{"}}data.zipcode{{"}}"}}
+            </li>
+            <li>
+              {{"{{"}}data.street{{"}}"}}
+            </li>
+            <li>
+              {{"{{"}}data.neighborhood{{"}}"}}
+            </li>
+            <li>
+              {{"{{"}}data.state_short{{"}}"}}
+            </li>
+            <li>
+              {{"{{"}}data.city{{"}}"}}
+            </li>
+          </ul>
+        </template>
+       </v-layout>
+    </v-app>
   </div>
-</header>
-
-<div class="container">
-  <div class="row">
-    <div class="span6">
-      {{template "flash.html" .}}
-    </div>
-  </div>
-</div>
+neighborhood
+  <script>
+    new Vue({ 
+     el: '#app',
+     data(){
+       return {
+         cepRules: [
+           v => !!v || "Preencha o CEP",
+           v => /[0-9]{8}/.test(v) || "Coloque apenas números",
+         ],
+         cep: null,
+         valid: null,
+         error: null,
+         data: {
+          name: null,
+          zipcode: null,
+          street: null,
+          neighborhood: null,
+          state_short: null,
+          city: null,
+         }
+       }
+     },
+     methods: {
+        submit() {
+         if (this.$refs.form.validate()) {
+           this.$http.get('/zipcode/' + this.cep).then(response => {
+             this.data = response.body
+           }, response => {
+             this.error = response.body.message
+           });
+         }
+        }
+      }
+    })
+  </script>
 
 {{template "footer.html" .}}
