@@ -9,10 +9,13 @@ A simple cep getter from a API
 
 ## How Dev
 
+Read this [project specifications](./manifest/specs.md) and it [journal](./manifest/journal.md).
+
 Run the commands bellow to build the project
 
-1. `docker-compose build`
-2. `docker-compose up`
+1. `cp .env.sample.env .env`
+2. `docker-compose build`
+3. `docker-compose up`
 
 The project will be accessible on [http://localhost:9000](http://localhost:9000).
 

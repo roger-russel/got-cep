@@ -9,6 +9,8 @@ module:testrunner
 
 GET     /                                       App.Index
 
+GET     /zipcode/:zipcode                       Zipcode.Index
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
