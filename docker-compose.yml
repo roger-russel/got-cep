@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  got-cep-dev:
+    container_name: got-cep-dev
+    env_file:
+      - .env
+    build: ./
+    ports:
+      - 9000:9000
+    volumes:
+      - ./:/go/src/got-cep
+    command: ["revel", "run", "-a", "got-cep"]
