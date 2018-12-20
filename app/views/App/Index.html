@@ -5,12 +5,14 @@
     <v-app>
       <v-content >
         <v-layout>
+        <template>
           <v-form ref="form">
             <v-text-field v-model="cep" :rules="cepRules" :counter="8" label="cep" required></v-text-field>
             <v-btn color="info"     
               @click="submit"
             >buscar</v-btn>
-          </v-form>
+          </v-form><br>
+          <h1 v-show="error">{{"{{"}}error{{"}}"}}</h1>
         </template>
         <template>
           <ul>
@@ -34,6 +36,7 @@
             </li>
           </ul>
         </template>
+
        </v-layout>
     </v-app>
   </div>

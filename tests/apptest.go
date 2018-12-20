@@ -21,3 +21,4 @@ func (t *AppTest) TestThatIndexPageWorks() {
 func (t *AppTest) After() {
 	println("Tear down")
 }
+
