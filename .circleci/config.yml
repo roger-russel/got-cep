@@ -13,4 +13,4 @@ jobs:
       - run:
           name: Testig
           command: |
-          - revel test
+            - revel test
