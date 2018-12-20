@@ -4,7 +4,10 @@
 version: 2
 
 workflows:
-  - test
+  version: 2
+  test_any:
+    jobs:
+      - test
 
 jobs:
   test:
