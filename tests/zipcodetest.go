@@ -16,7 +16,6 @@ func (t *ZipCodeTest) TestThatZipCodeRouteWorks() {
 
 	t.Get("/zipcode/03816030")
 	t.AssertStatus(401) // Access have been revoked :(
-	t.AssertContentType("text/html; charset=utf-8")
 }
 
 func (t *ZipCodeTest) After() {
