@@ -18,6 +18,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Installing Dependencies
+          command: |
+            go get github.com/revel/cmd/revel
+      - run:
           name: Testig
           command: |
             revel test
